@@ -22,6 +22,14 @@ public class PatientService {
 	public String readPatients() {
 		return patientObj.readPatients();
 	}
+	
+	@GET
+	@Path("/UsersAppointments/{patientID}")
+	@Produces(MediaType.TEXT_HTML)
+	public String readPatientsPaymentHistory(@PathParam("patientID") String patientID) {
+		return patientObj.readPatientsPaymentHistory(patientID);
+		//appointments details for selected user
+	}
 
 	@POST
 	@Path("/")

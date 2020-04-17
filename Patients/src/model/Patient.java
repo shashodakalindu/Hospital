@@ -94,6 +94,42 @@ public class Patient {
 		}
 		return output;
 	}
+	
+	public String readPatientsPaymentHistory(String patientID1) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
+			}
+			// Prepare the html table to be displayed
+			output = "<table border=\"1\"><tr><th>Payment Amount</th><th>Payment Purpose</th><th>Patient ID</th><th>Update</th><th>Remove</th></tr>";
+			String query = "select * from payments where patientID="+ patientID1;
+			Statement stmt = (Statement) con.createStatement();
+			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
+			// iterate through the rows in the result set
+			while (rs.next()) {
+				String paymentID = Integer.toString(rs.getInt("paymentID"));
+				String paymentAmount = Integer.toString( rs.getInt("paymentAmount"));
+				String paymentPurpose = rs.getString("paymentPurpose");
+				String patientID = Integer.toString( rs.getInt("patientID"));
+				
+				// Add into the html table
+				output += "<tr><td>" + paymentAmount + "</td>";
+				output += "<td>" + paymentPurpose + "</td>";
+				output += "<td>" + patientID1 + "</td>";
+				
+			}
+			con.close();
+			// Complete the html table
+			output += "</table>";
+		} catch (Exception e) {
+			output = "Error while reading the payments.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
 
 	public String updatePatient(String ID,  String name, String age, String address, String phone, String gender, String notes) {
 		String output = "";
