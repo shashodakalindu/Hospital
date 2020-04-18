@@ -53,7 +53,7 @@ public class PatientService {
 		String output = patientObj.insertPatient(patientName, patientAge, patientAddress, patientPhone, patientGender, patientNotes);
 		return output;
 	}
-	//put
+	//put method
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
