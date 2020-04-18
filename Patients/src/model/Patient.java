@@ -94,7 +94,8 @@ public class Patient {
 		}
 		return output;
 	}
-	//Read
+	
+	//Read the payment for the specified person 
 	public String readPatientsPaymentHistory(String patientID1) {
 		String output = "";
 		try {
@@ -129,6 +130,51 @@ public class Patient {
 		}
 		return output;
 	}
+	
+	//Read the appointment for the specified person
+	public String readPatientsAppointmentHistory(String patientID2)
+	 {
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for reading."; }
+	 // Prepare the html table to be displayed
+	 output = "<table border=\"1\"><tr>Appointment ID<th> Number </th><th> Date </th><th> description </th><th> Time </th><th> Type </th><th>Patient ID</th><th>Update</th><th>Remove</th></tr>";
+	 String query = "select * from appointment where patientID="+ patientID2;
+	 Statement stmt = con.createStatement();
+	 ResultSet rs = stmt.executeQuery(query);
+	 // iterate through the rows in the result set
+	 while (rs.next())
+	 {
+		 String AppointmentID = Integer.toString(rs.getInt("AppointmentID"));
+		 String Number = rs.getString("Number");
+		 String Date = rs.getString("Date");
+		 String description = rs.getString("description");		
+		 String Time = rs.getString("Time");
+		 String Type = rs.getString("Type");
+		 String patientID = Integer.toString( rs.getInt("patientID"));
+	 // Add into the html table
+		 output += "<tr><td>" + Number + "</td>";
+		 output += "<td>" + Date + "</td>";
+		 output += "<td>" + description + "</td>";
+		 output += "<td>" + Time + "</td>";
+		 output += "<td>" + Type + "</td>";
+		 output += "<td>" + patientID2 + "</td>";
+
+	 }
+	 con.close();
+	 // Complete the html table
+	 output += "</table>";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while reading the items.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 } 
 
 	//Update
 	public String updatePatient(String ID,  String name, String age, String address, String phone, String gender, String notes) {
