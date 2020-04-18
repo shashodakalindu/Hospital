@@ -20,7 +20,7 @@ public class Patient {
 		}
 		return con;
 	}
-
+	//insert
 	public String insertPatient(String name, String age, String address, String phone, String gender, String notes) {
 		String output = "";
 		try {
@@ -50,7 +50,7 @@ public class Patient {
 		}
 		return output;
 	}
-
+	//Read
 	public String readPatients() {
 		String output = "";
 		try {
@@ -94,7 +94,7 @@ public class Patient {
 		}
 		return output;
 	}
-	
+	//Read
 	public String readPatientsPaymentHistory(String patientID1) {
 		String output = "";
 		try {
@@ -130,7 +130,7 @@ public class Patient {
 		return output;
 	}
 
-
+	//Update
 	public String updatePatient(String ID,  String name, String age, String address, String phone, String gender, String notes) {
 		String output = "";
 		try {
@@ -159,7 +159,7 @@ public class Patient {
 		}
 		return output;
 	}
-
+	//Delete
 	public String deletePatient(String patientID) {
 		String output = "";
 		try {
