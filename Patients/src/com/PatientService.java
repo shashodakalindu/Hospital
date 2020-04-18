@@ -24,7 +24,7 @@ public class PatientService {
 	}
 	
 	@GET
-	@Path("/UsersAppointments/{patientID}")
+	@Path("/PatientPayments/{patientID}")
 	@Produces(MediaType.TEXT_HTML)
 	public String readPatientsPaymentHistory(@PathParam("patientID") String patientID) {
 		return patientObj.readPatientsPaymentHistory(patientID);
