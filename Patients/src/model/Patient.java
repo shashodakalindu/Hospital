@@ -95,7 +95,7 @@ public class Patient {
 		return output;
 	}
 	
-	//Read the payment for the specified person 
+	//Read the payments for the specified person 
 	public String readPatientsPaymentHistory(String patientID1) {
 		String output = "";
 		try {
@@ -131,7 +131,7 @@ public class Patient {
 		return output;
 	}
 	
-	//Read the appointment for the specified person
+	//Read the appointments for the specified person
 	public String readPatientsAppointmentHistory(String patientID2)
 	 {
 	 String output = "";
