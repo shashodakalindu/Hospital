@@ -29,7 +29,7 @@ public class Appointment{
 		
 		
 		
-		public String insertItem(String Number, String Date, String description, String Time, String Type ,String PatientID)
+		public String insertItem(String Number, String Date, String description, String Time, String Type ,String patientID,int DID,int HospitalID)
 		 {
 		 String output = "";
 		 try
@@ -38,8 +38,8 @@ public class Appointment{
 		 if (con == null)
 		 {return "Error while connecting to the database for inserting."; }
 		 // create a prepared statement
-		 String query = " insert into appointment(`AppointmentID`,`Number`,`Date`,`description`,`Time`,`Type`,`PatientID`)"
-		 + " values (?, ?, ?, ?, ?, ?,?)";
+		 String query = " insert into appointment(`AppointmentID`,`Number`,`Date`,`description`,`Time`,`Type`,`PatientID`,`DID`,`HospitalID`)"
+		 + " values (?, ?, ?, ?, ?, ?,?,?,?)";
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 // binding values
 		 preparedStmt.setInt(1, 0);
@@ -48,7 +48,9 @@ public class Appointment{
 		 preparedStmt.setString(4, description);
 		 preparedStmt.setString(5, Time);
 		 preparedStmt.setString(6, Type);
-		 preparedStmt.setString(7, PatientID);
+		 preparedStmt.setString(7, patientID);
+		 preparedStmt.setInt(8, DID);
+		 preparedStmt.setInt(9, HospitalID);
 		
 		 
 		// execute the statement
@@ -75,7 +77,7 @@ public class Appointment{
 		 if (con == null)
 		 {return "Error while connecting to the database for reading."; }
 		 // Prepare the html table to be displayed
-		 output = "<table border=\"1\"><tr>Appointment ID<th> Number </th><th> Date </th><th> description </th><th> Time </th><th> Type </th><th> PatientID </th><th>Update</th><th>Remove</th></tr>";
+		 output = "<table border=\"1\"><tr>Appointment ID<th> Number </th><th> Date </th><th> description </th><th> Time </th><th> Type </th><th> PatientID </th><th> DoctorID </th><th> Hospital ID </th><th>Update</th><th>Remove</th></tr>";
 		 String query = "select * from appointment";
 		 Statement stmt = con.createStatement();
 		 ResultSet rs = stmt.executeQuery(query);
@@ -88,7 +90,9 @@ public class Appointment{
 			 String description = rs.getString("description");		
 			 String Time = rs.getString("Time");
 			 String Type = rs.getString("Type");
-			 String PatientID = rs.getString("PatientID");
+			 String patientID = rs.getString("patientID");
+			 String DID = Integer.toString(rs.getInt("DID"));
+			 String HospitalID = Integer.toString(rs.getInt("HospitalID"));
 			 
 		 // Add into the html table
 			 output += "<tr><td>" + Number + "</td>";
@@ -96,7 +100,9 @@ public class Appointment{
 			 output += "<td>" + description + "</td>";
 			 output += "<td>" + Time + "</td>";
 			 output += "<td>" + Type + "</td>";
-			 output += "<td>" + PatientID + "</td>";
+			 output += "<td>" + patientID + "</td>";
+			 output += "<td>" + DID + "</td>";
+			 output += "<td>" + HospitalID + "</td>";
 			 
 		 // buttons
 		 output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"+ "<td><form method=\"post\" action=\"items.jsp\">" + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
@@ -121,7 +127,7 @@ public class Appointment{
 		
 		
 		
-		public String updateItem(String AppointmentID, String Number, String Date, String description, String Time, String Type ,String PatientID)
+		public String updateItem(String AppointmentID, String Number, String Date, String description, String Time, String Type ,String patientID,Integer DID,Integer HospitalID)
 		 {
 		 String output = "";
 		 try
@@ -130,7 +136,7 @@ public class Appointment{
 		 if (con == null)
 		 {return "Error while connecting to the database for updating."; }
 		 // create a prepared statement
-		 String query = "UPDATE appointment SET Number=?,Date=?,description=?,Time=?,Type=?,PatientID=?WHERE AppointmentID=?";
+		 String query = "UPDATE appointment SET Number=?,Date=?,description=?,Time=?,Type=?,patientID=?,DID=?,HospitalID=? WHERE AppointmentID=?";
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 // binding values
 		 preparedStmt.setString(1, Number);
@@ -138,8 +144,11 @@ public class Appointment{
 		 preparedStmt.setString(3, description);
 		 preparedStmt.setString(4, Time);
 		 preparedStmt.setString(5, Type);
-		 preparedStmt.setString(6, PatientID);
-		 preparedStmt.setInt(7,Integer.parseInt(AppointmentID));
+		 preparedStmt.setString(6, patientID);
+		 preparedStmt.setInt(7,DID);
+		 preparedStmt.setInt(8,HospitalID);
+		 preparedStmt.setInt(9,Integer.parseInt(AppointmentID));
+		 
 		 // execute the statement
 		 preparedStmt.execute();
 		 con.close();

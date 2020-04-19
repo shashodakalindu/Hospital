@@ -34,18 +34,20 @@ public class AppoinmentService {
 	 @FormParam("description") String description,
 	 @FormParam("Time") String Time,
 	 @FormParam("Type") String Type,
-	@FormParam("PatientID") String PatientID)
+	@FormParam("patientID") String patientID,
+	@FormParam("DID") Integer DID,
+	@FormParam("HospitalID") Integer HospitalID)
 	
 	
 	{
-	 String output = appointmentObj.insertItem(Number, Date, description, Time, Type,PatientID);
+	 String output = appointmentObj.insertItem(Number, Date, description, Time, Type,patientID,DID,HospitalID);
 	return output;
 	}
 	
 	
 	
 	
-	
+	 
 	
 	
 	
@@ -66,10 +68,12 @@ public class AppoinmentService {
 	 String description = appointmentObject.get("description").getAsString();
 	 String Time = appointmentObject.get("Time").getAsString();
 	 String Type = appointmentObject.get("Type").getAsString();
-	 String PatientID = appointmentObject.get("PatientID").getAsString();
+	 String patientID = appointmentObject.get("patientID").getAsString();
+	 int DID = appointmentObject.get("DID").getAsInt();
+	 int HospitalID = appointmentObject.get("HospitalID").getAsInt();
 	
 	 
-	 String output = appointmentObj.updateItem(AppointmentID,Number,Date,description,Time,Type,PatientID);
+	 String output = appointmentObj.updateItem(AppointmentID,Number,Date,description,Time,Type,patientID,DID,HospitalID);
 	return output;
 	}
 	
