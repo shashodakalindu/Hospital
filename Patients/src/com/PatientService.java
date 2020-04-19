@@ -39,7 +39,7 @@ public class PatientService {
 		return patientObj.readPatientsAppointmentHistory(patientID);
 		//appointments details for selected user
 	}
-	//post method
+	//post 
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
