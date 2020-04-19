@@ -20,6 +20,7 @@ public class Patient {
 		}
 		return con;
 	}
+	
 	//insert to patient table
 	public String insertPatient(String name, String age, String address, String phone, String gender, String notes) {
 		String output = "";
@@ -46,6 +47,42 @@ public class Patient {
 			output = "Inserted successfully";
 		} catch (Exception e) {
 			output = "Error while inserting the item.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+	public String patientLogin(String username, String password) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for reading.";
+			}
+			
+			String query ="select patientName,patientPhone from patients where patientName="+username+" AND patientPhone="+password;
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			ResultSet rs = ((java.sql.Statement) preparedStmt).executeQuery(query);
+			
+			
+			  while (rs.next()) {
+			        String UserName = rs.getString("patientName");
+			        String Password = rs.getString("patientPhone");
+			        
+			  
+			        if((username.equalsIgnoreCase(UserName)) && (password.equalsIgnoreCase(Password))) {
+			        	output ="     Login Failed  !!";
+			        	//output ="     Login Successful  !!           You're logged as "   +UserName;
+			        	}
+		              else {
+		                //output ="      Login Failed...!!";
+		            	 output ="     Login Successful  !!           You're logged as "   +UserName;
+		              	} 
+			  	}
+			
+			con.close();
+			
+		}catch (Exception e) {
+			output = "Error while Logging.";
 			System.err.println(e.getMessage());
 		}
 		return output;

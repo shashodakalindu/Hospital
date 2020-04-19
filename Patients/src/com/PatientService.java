@@ -42,6 +42,13 @@ public class PatientService {
 		//appointments details for selected user
 	}
 	
+	@GET
+	@Path("/PatientAuthentication/{patientName}/{patientPhone}")
+	@Produces(MediaType.TEXT_HTML)
+	public String patientLogin (@PathParam("patientName")String patientName,@PathParam("patientPhone")String patientPhone) {
+		return patientObj.patientLogin(patientName,patientPhone);
+		//appointments details for selected user
+	}
 	 
 	@POST
 	@Path("/")
