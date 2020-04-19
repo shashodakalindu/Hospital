@@ -23,6 +23,10 @@ public class PaymentService {
 		public String readPayments() {
 			return paymentObj.readPayments();
 		}
+		
+		
+		
+		
 
 		@POST
 		@Path("/")
