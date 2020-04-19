@@ -16,13 +16,33 @@ import org.jsoup.nodes.Document;
 public class PatientService {
 	Patient patientObj = new Patient();
 
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public String readPatients() {
 		return patientObj.readPatients();
 	}
-
+	
+	
+	@GET
+	@Path("/PatientPayments/{patientID}")
+	@Produces(MediaType.TEXT_HTML)
+	public String readPatientsPaymentHistory(@PathParam("patientID") String patientID) {
+		return patientObj.readPatientsPaymentHistory(patientID);
+		//appointments details for selected user
+	}
+	
+	
+	@GET
+	@Path("/PatientAppointments/{patientID}")
+	@Produces(MediaType.TEXT_HTML)
+	public String readPatientsAppointmentHistory(@PathParam("patientID") String patientID) {
+		return patientObj.readPatientsAppointmentHistory(patientID);
+		//appointments details for selected user
+	}
+	
+	 
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -36,7 +56,7 @@ public class PatientService {
 		String output = patientObj.insertPatient(patientName, patientAge, patientAddress, patientPhone, patientGender, patientNotes);
 		return output;
 	}
-
+	
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -55,7 +75,7 @@ public class PatientService {
 		String output = patientObj.updatePatient(patientID, patientName, patientAge, patientAddress, patientPhone, patientGender, patientNotes);
 		return output;
 	}
-
+	
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)
